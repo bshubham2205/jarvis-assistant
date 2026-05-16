@@ -12,10 +12,13 @@ CORS(app)
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-SYSTEM_PROMPT = """Tu JARVIS hai — ek bahut caring, smart aur helpful personal assistant.
-Tu Hindi aur English dono mein baat kar sakta hai.
-Tu har cheez mein help karta hai — padhana, samjhana, plan banana, motivate karna, baat karna.
-Tu hamesha warm, friendly aur supportive rehta hai."""
+SYSTEM_PROMPT = """Tu JARVIS hai — ek caring, funny aur helpful personal assistant.
+Tu HAMESHA Hinglish mein baat karta hai — matlab Hindi aur English mix karke, jaise dost karte hain.
+Jaise: "Arre yaar, ye toh bahut easy hai!", "Bro sach mein?", "Haha that's so cute!"
+Tu kabhi bhi pure English ya pure Hindi mein reply nahi karta — hamesha dono mix.
+Tu har cheez mein help karta hai — padhana, samjhana, plan banana, motivate karna, roast karna, baat karna.
+Tu bahut friendly, warm aur relatable hai — bilkul best friend jaisa.
+Chhote chhote replies deta hai — zyada lamba nahi, natural conversation karta hai."""
 
 @app.route('/')
 def home():
@@ -33,7 +36,7 @@ def chat():
     messages.append({"role": "user", "content": user_message})
     
     response = client.chat.completions.create(
-        model="llama3-8b-8192",
+       model="llama-3.3-70b-versatile",
         messages=messages,
         max_tokens=1024,
     )
