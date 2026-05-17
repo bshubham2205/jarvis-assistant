@@ -239,34 +239,43 @@
   let history = [];
   let recognition = null;
   let isRecording = false;
+  let isSpeaking = false;
   const chat = document.getElementById('chat');
   const input = document.getElementById('input');
   const sendBtn = document.getElementById('sendBtn');
   const micBtn = document.getElementById('micBtn');
 
   // Speech Recognition Setup
-  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
     recognition = new SR();
     recognition.lang = 'hi-IN';
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.interimResults = false;
 
     recognition.onresult = (e) => {
-      const text = e.results[0][0].transcript;
-      input.value = text;
-      autoResize(input);
-      stopMic();
-      send();
+      const text = e.results[e.results.length - 1][0].transcript;
+      if (text.trim()) {
+        input.value = text;
+        send();
+      }
     };
 
-    recognition.onerror = () => stopMic();
-    recognition.onend = () => stopMic();
+    recognition.onend = () => {
+      // Agar user ne band nahi kiya toh apne aap restart
+      if (isRecording && !isSpeaking) {
+        try { recognition.start(); } catch(e) {}
+      }
+    };
+
+    recognition.onerror = (e) => {
+      if (e.error !== 'no-speech') stopMic();
+    };
   }
 
   function toggleMic() {
     if (!recognition) {
-      alert('Tumhara browser voice support nahi karta. Chrome use karo!');
+      alert('Chrome browser use karo voice ke liye!');
       return;
     }
     if (isRecording) {
@@ -280,8 +289,8 @@
     isRecording = true;
     micBtn.classList.add('recording');
     micBtn.innerHTML = '⏹️';
-    micBtn.title = 'Rok lo';
-    recognition.start();
+    micBtn.title = 'Band karo';
+    try { recognition.start(); } catch(e) {}
   }
 
   function stopMic() {
@@ -292,28 +301,51 @@
     try { recognition.stop(); } catch(e) {}
   }
 
-  // Text to Speech
- function speak(text) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'hi-IN';
-      utter.rate = 1.0;
-      utter.pitch = 0.7;  // Male voice
-      utter.volume = 1;
+  // Indian Male Voice
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
 
-      // Male voice dhundho
-      const voices = window.speechSynthesis.getVoices();
-      const maleVoice = voices.find(v =>
-        v.lang.includes('hi') && v.name.toLowerCase().includes('male')
-      ) || voices.find(v =>
-        v.name.toLowerCase().includes('male')
-      );
-      if (maleVoice) utter.voice = maleVoice;
+    window.speechSynthesis.cancel();
+    isSpeaking = true;
 
-      window.speechSynthesis.speak(utter);
+    // Mic band karo jab JARVIS bol raha ho
+    if (isRecording) {
+      try { recognition.stop(); } catch(e) {}
     }
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'hi-IN';
+    utter.rate = 0.95;
+    utter.pitch = 0.8;
+    utter.volume = 1;
+
+    // Indian voice dhundho
+    const voices = window.speechSynthesis.getVoices();
+    const indianMale = 
+      voices.find(v => v.name.includes('Google हिन्दी')) ||
+      voices.find(v => v.lang === 'hi-IN') ||
+      voices.find(v => v.lang.includes('hi')) ||
+      voices.find(v => v.name.toLowerCase().includes('male'));
+    
+    if (indianMale) utter.voice = indianMale;
+
+    utter.onend = () => {
+      isSpeaking = false;
+      // JARVIS bolne ke baad apne aap mic chalu
+      if (isRecording) {
+        setTimeout(() => {
+          try { recognition.start(); } catch(e) {}
+        }, 300);
+      }
+    };
+
+    window.speechSynthesis.speak(utter);
   }
+
+  // Voices load hone ka wait
+  window.speechSynthesis.onvoiceschanged = () => {
+    window.speechSynthesis.getVoices();
+  };
 
   function autoResize(el) {
     el.style.height = 'auto';
@@ -383,8 +415,6 @@
       removeTyping();
       addMsg('assistant', data.reply);
       history.push({ role: 'assistant', content: data.reply });
-
-      // JARVIS bhi bolta hai!
       speak(data.reply);
 
     } catch (err) {
