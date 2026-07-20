@@ -65,6 +65,185 @@
     animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .offline-banner {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    background: rgba(245, 158, 11, 0.12);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    font-size: 12.5px;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+  }
+  .offline-banner.show { display: flex; }
+  .offline-banner .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fbbf24;
+    box-shadow: 0 0 6px #fbbf24;
+    animation: pulse 1.4s infinite;
+    flex-shrink: 0;
+  }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    padding: 10px 16px 0;
+    background: rgba(10,10,15,0.9);
+    position: relative;
+    z-index: 10;
+  }
+  .tab {
+    flex: 1;
+    padding: 9px 10px;
+    border-radius: 12px 12px 0 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-bottom: none;
+    background: rgba(255,255,255,0.03);
+    color: #9b99b0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    background: #1c1c26;
+    color: #c084fc;
+    border-color: rgba(124,58,237,0.4);
+  }
+  .view { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .translator-wrap {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .lang-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1c1c26;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
+  .lang-select {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #f1f0f5;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  .lang-select option { background: #1c1c26; color: #f1f0f5; }
+  .swap-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(124,58,237,0.12);
+    color: #c084fc;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .swap-btn:hover { transform: rotate(180deg); }
+  .panel {
+    background: #1c1c26;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .panel-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #7a7890;
+  }
+  .panel-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #f1f0f5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    flex: 1;
+  }
+  .panel-text.placeholder { color: #5c5a72; }
+  .panel.target { border-color: rgba(124,58,237,0.3); }
+  .panel-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .icon-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: #c084fc;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .icon-btn:hover { transform: scale(1.1); }
+  .translate-mic-row {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0 4px;
+  }
+  .translate-mic {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .translate-mic.recording {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    animation: micPulse 1s infinite;
+  }
+  .translate-mic:hover { transform: scale(1.06); }
+  .translate-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #7a7890;
+  }
+  .phrasebook-head { padding: 2px 2px 6px; }
+  .phrasebook-title { font-size: 15px; font-weight: 500; color: #c084fc; }
+  .phrasebook-sub { font-size: 12px; color: #7a7890; margin-top: 2px; }
+  .phrase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .phrase-card {
+    background: #1c1c26;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 13px 14px;
+  }
+  .phrase-en { font-size: 13px; color: #9b99b0; margin-bottom: 6px; }
+  .phrase-translated {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .phrase-translated span { font-size: 15px; color: #f1f0f5; line-height: 1.5; }
   .chat {
     flex: 1;
     overflow-y: auto;
@@ -211,6 +390,17 @@
   </div>
 </div>
 
+<div class="offline-banner" id="offlineBanner">
+  <div class="pulse-dot"></div>
+  <span>Internet nahi hai — Live translation ke liye net chahiye. Offline Phrasebook use karo neeche 👇</span>
+</div>
+
+<div class="tabs">
+  <button class="tab active" id="tabChat" onclick="switchTab('chat')">💬 Chat</button>
+  <button class="tab" id="tabTranslate" onclick="switchTab('translate')">🌐 Translator</button>
+</div>
+
+<div class="view" id="chatView">
 <div class="chat" id="chat">
   <div class="msg">
     <div class="msg-avatar">✨</div>
@@ -234,6 +424,48 @@
     <button class="send-btn" id="sendBtn" onclick="send()">➤</button>
   </div>
 </div>
+</div>
+
+<div class="view" id="translateView" style="display:none;">
+  <div class="translator-wrap">
+
+    <div class="lang-row">
+      <select class="lang-select" id="srcLang"></select>
+      <button class="swap-btn" onclick="swapLangs()" title="Swap languages">⇄</button>
+      <select class="lang-select" id="tgtLang"></select>
+    </div>
+
+    <div id="liveTranslate">
+      <div class="panel source">
+        <div class="panel-label">Bola gaya</div>
+        <div class="panel-text placeholder" id="srcText">Mic dabao aur bolna shuru karo...</div>
+      </div>
+
+      <div class="translate-mic-row">
+        <button class="translate-mic" id="translateMicBtn" onclick="toggleTranslateMic()" title="Bolna shuru karo">🎤</button>
+      </div>
+      <div class="translate-hint" id="translateStatus">Language select karo aur mic dabao</div>
+
+      <div class="panel target">
+        <div class="panel-label">Translation</div>
+        <div class="panel-text placeholder" id="tgtText">Translation yahan aayega...</div>
+        <div class="panel-footer">
+          <button class="icon-btn" id="replayBtn" onclick="replayTranslation()" title="Dobara sunao">🔊</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="offlinePhrasebook" style="display:none;">
+      <div class="phrasebook-head">
+        <div class="phrasebook-title">📖 Offline Phrasebook</div>
+        <div class="phrasebook-sub">Bina internet ke kaam karta hai — common classroom phrases</div>
+      </div>
+      <div class="phrase-list" id="phraseList"></div>
+    </div>
+
+  </div>
+</div>
+
 
 <script>
   let history = [];
@@ -346,6 +578,323 @@
   window.speechSynthesis.onvoiceschanged = () => {
     window.speechSynthesis.getVoices();
   };
+
+  // ============ TRANSLATOR FEATURE ============
+  // All 22 scheduled Indian languages. AI translation (online) works for all.
+  // 'offline: true' languages have hand-checked offline phrasebook entries.
+  const INDIAN_LANGS = [
+    { code: 'hi-IN', name: 'Hindi', offline: true },
+    { code: 'en-IN', name: 'English', offline: true },
+    { code: 'ta-IN', name: 'Tamil', offline: true },
+    { code: 'te-IN', name: 'Telugu', offline: true },
+    { code: 'kn-IN', name: 'Kannada', offline: true },
+    { code: 'ml-IN', name: 'Malayalam', offline: true },
+    { code: 'bn-IN', name: 'Bengali', offline: true },
+    { code: 'mr-IN', name: 'Marathi', offline: true },
+    { code: 'gu-IN', name: 'Gujarati', offline: true },
+    { code: 'pa-IN', name: 'Punjabi', offline: true },
+    { code: 'ur-IN', name: 'Urdu', offline: true },
+    { code: 'or-IN', name: 'Odia', offline: true },
+    { code: 'as-IN', name: 'Assamese', offline: false },
+    { code: 'kok-IN', name: 'Konkani', offline: false },
+    { code: 'mai-IN', name: 'Maithili', offline: false },
+    { code: 'sa-IN', name: 'Sanskrit', offline: false },
+    { code: 'ne-IN', name: 'Nepali', offline: false },
+    { code: 'brx-IN', name: 'Bodo', offline: false },
+    { code: 'doi-IN', name: 'Dogri', offline: false },
+    { code: 'ks-IN', name: 'Kashmiri', offline: false },
+    { code: 'mni-IN', name: 'Manipuri', offline: false },
+    { code: 'sat-IN', name: 'Santali', offline: false },
+    { code: 'sd-IN', name: 'Sindhi', offline: false },
+  ];
+
+  const srcLangEl = document.getElementById('srcLang');
+  const tgtLangEl = document.getElementById('tgtLang');
+  const srcTextEl = document.getElementById('srcText');
+  const tgtTextEl = document.getElementById('tgtText');
+  const translateMicBtn = document.getElementById('translateMicBtn');
+  const translateStatus = document.getElementById('translateStatus');
+
+  INDIAN_LANGS.forEach(l => {
+    srcLangEl.innerHTML += `<option value="${l.code}" data-name="${l.name}">${l.name}</option>`;
+    tgtLangEl.innerHTML += `<option value="${l.code}" data-name="${l.name}">${l.name}</option>`;
+  });
+  srcLangEl.value = 'hi-IN';
+  tgtLangEl.value = 'en-IN';
+
+  function langName(selectEl) {
+    return selectEl.options[selectEl.selectedIndex].dataset.name;
+  }
+
+  function swapLangs() {
+    const s = srcLangEl.value, t = tgtLangEl.value;
+    srcLangEl.value = t;
+    tgtLangEl.value = s;
+  }
+
+  function switchTab(tab) {
+    const chatView = document.getElementById('chatView');
+    const translateView = document.getElementById('translateView');
+    const tabChat = document.getElementById('tabChat');
+    const tabTranslate = document.getElementById('tabTranslate');
+
+    if (tab === 'chat') {
+      chatView.style.display = 'flex';
+      translateView.style.display = 'none';
+      tabChat.classList.add('active');
+      tabTranslate.classList.remove('active');
+      stopTranslateMic();
+    } else {
+      chatView.style.display = 'none';
+      translateView.style.display = 'flex';
+      tabChat.classList.remove('active');
+      tabTranslate.classList.add('active');
+      stopMic();
+      updateNetworkStatus();
+    }
+  }
+
+  // ============ ONLINE / OFFLINE HANDLING ============
+  function updateNetworkStatus() {
+    const banner = document.getElementById('offlineBanner');
+    const liveTranslate = document.getElementById('liveTranslate');
+    const offlinePhrasebook = document.getElementById('offlinePhrasebook');
+    const online = navigator.onLine;
+
+    banner.classList.toggle('show', !online);
+
+    if (!online) {
+      stopTranslateMic();
+      liveTranslate.style.display = 'none';
+      offlinePhrasebook.style.display = 'block';
+      renderPhrasebook();
+    } else {
+      liveTranslate.style.display = 'block';
+      offlinePhrasebook.style.display = 'none';
+    }
+  }
+
+  window.addEventListener('online', updateNetworkStatus);
+  window.addEventListener('offline', updateNetworkStatus);
+  updateNetworkStatus();
+
+  // ============ OFFLINE PHRASEBOOK (works with zero internet) ============
+  // Common classroom phrases, hand-checked for the 12 major languages.
+  const PHRASEBOOK = [
+    {
+      en: 'Good morning, students',
+      hi: 'सुप्रभात, छात्रों', ta: 'காலை வணக்கம் மாணவர்களே', te: 'శుభోదయం విద్యార్థులారా',
+      kn: 'ಶುಭೋದಯ ವಿದ್ಯಾರ್ಥಿಗಳೇ', ml: 'സുപ്രഭാതം വിദ്യാർത്ഥികളേ', bn: 'সুপ্রভাত, ছাত্রছাত্রীরা',
+      mr: 'सुप्रभात विद्यार्थ्यांनो', gu: 'સુપ્રભાત, વિદ્યાર્થીઓ', pa: 'ਸ਼ੁਭ ਸਵੇਰ, ਵਿਦਿਆਰਥੀਓ',
+      ur: 'صبح بخیر، طلباء', or: 'ସୁପ୍ରଭାତ ଛାତ୍ରମାନେ', en: 'Good morning, students'
+    },
+    {
+      en: 'Please sit down',
+      hi: 'कृपया बैठ जाइए', ta: 'தயவுசெய்து உட்காருங்கள்', te: 'దయచేసి కూర్చోండి',
+      kn: 'ದಯವಿಟ್ಟು ಕುಳಿತುಕೊಳ್ಳಿ', ml: 'ദയവായി ഇരിക്കൂ', bn: 'দয়া করে বসুন',
+      mr: 'कृपया बसा', gu: 'કૃપા કરી બેસો', pa: 'ਕਿਰਪਾ ਕਰਕੇ ਬੈਠ ਜਾਓ',
+      ur: 'براہ کرم بیٹھ جائیں', or: 'ଦୟାକରି ବସନ୍ତୁ', en: 'Please sit down'
+    },
+    {
+      en: 'Open your books',
+      hi: 'अपनी किताबें खोलिए', ta: 'உங்கள் புத்தகங்களைத் திறங்கள்', te: 'మీ పుస్తకాలు తెరవండి',
+      kn: 'ನಿಮ್ಮ ಪುಸ್ತಕಗಳನ್ನು ತೆರೆಯಿರಿ', ml: 'നിങ്ങളുടെ പുസ്തകങ്ങൾ തുറക്കൂ', bn: 'তোমাদের বই খোলো',
+      mr: 'तुमची पुस्तके उघडा', gu: 'તમારા પુસ્તકો ખોલો', pa: 'ਆਪਣੀਆਂ ਕਿਤਾਬਾਂ ਖੋਲ੍ਹੋ',
+      ur: 'اپنی کتابیں کھولیں', or: 'ଆପଣଙ୍କ ପାଠ୍ୟପୁସ୍ତକ ଖୋଲନ୍ତୁ', en: 'Open your books'
+    },
+    {
+      en: 'Silence please',
+      hi: 'शांति बनाए रखिए', ta: 'அமைதி காக்கவும்', te: 'నిశ్శబ్దం పాటించండి',
+      kn: 'ದಯವಿಟ್ಟು ಮೌನವಾಗಿರಿ', ml: 'ദയവായി നിശബ്ദത പാലിക്കൂ', bn: 'নীরবতা বজায় রাখো',
+      mr: 'शांतता राखा', gu: 'શાંતિ જાળવો', pa: 'ਚੁੱਪ ਰਹੋ',
+      ur: 'خاموشی اختیار کریں', or: 'ନୀରବତା ବଜାୟ ରଖନ୍ତୁ', en: 'Silence please'
+    },
+    {
+      en: 'Submit your homework',
+      hi: 'अपना गृहकार्य जमा कीजिए', ta: 'உங்கள் வீட்டுப்பாடத்தை சமர்ப்பிக்கவும்', te: 'మీ హోంవర్క్ సమర్పించండి',
+      kn: 'ನಿಮ್ಮ ಮನೆಕೆಲಸವನ್ನು ಸಲ್ಲಿಸಿ', ml: 'നിങ്ങളുടെ ഹോംവർക്ക് സമർപ്പിക്കൂ', bn: 'তোমাদের হোমওয়ার্ক জমা দাও',
+      mr: 'तुमचा गृहपाठ जमा करा', gu: 'તમારું ગૃહકાર્ય સુપરત કરો', pa: 'ਆਪਣਾ ਹੋਮਵਰਕ ਜਮ੍ਹਾਂ ਕਰੋ',
+      ur: 'اپنا ہوم ورک جمع کروائیں', or: 'ଆପଣଙ୍କ ଗୃହକାର୍ଯ୍ୟ ଦାଖଲ କରନ୍ତୁ', en: 'Submit your homework'
+    },
+    {
+      en: 'Any questions?',
+      hi: 'कोई प्रश्न?', ta: 'ஏதேனும் கேள்விகள் உள்ளதா?', te: 'ఏవైనా ప్రశ్నలు ఉన్నాయా?',
+      kn: 'ಯಾವುದೇ ಪ್ರಶ್ನೆಗಳಿವೆಯೇ?', ml: 'എന്തെങ്കിലും ചോദ്യങ്ങളുണ്ടോ?', bn: 'কোনো প্রশ্ন আছে?',
+      mr: 'काही प्रश्न आहेत का?', gu: 'કોઈ પ્રશ્નો છે?', pa: 'ਕੋਈ ਸਵਾਲ ਹੈ?',
+      ur: 'کوئی سوال؟', or: 'କୌଣସି ପ୍ରଶ୍ନ ଅଛି କି?', en: 'Any questions?'
+    },
+    {
+      en: 'Very good, well done',
+      hi: 'बहुत बढ़िया, शाबाश', ta: 'மிகவும் நல்லது, பாராட்டுகள்', te: 'చాలా బాగుంది, శభాష్',
+      kn: 'ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ, ಶಹಬಾಸ್', ml: 'വളരെ നല്ലത്, അഭിനന്ദനങ്ങൾ', bn: 'খুব ভালো, শাবাশ',
+      mr: 'खूप छान, शाब्बास', gu: 'ખૂબ સરસ, શાબાશ', pa: 'ਬਹੁਤ ਵਧੀਆ, ਸ਼ਾਬਾਸ਼',
+      ur: 'بہت اچھا، شاباش', or: 'ବହୁତ ଭଲ, ସାବାସ', en: 'Very good, well done'
+    },
+    {
+      en: 'Class is dismissed',
+      hi: 'कक्षा समाप्त हुई', ta: 'வகுப்பு முடிந்தது', te: 'తరగతి ముగిసింది',
+      kn: 'ತರಗತಿ ಮುಗಿಯಿತು', ml: 'ക്ലാസ് അവസാനിച്ചു', bn: 'ক্লাস শেষ হয়েছে',
+      mr: 'वर्ग संपला', gu: 'વર્ગ પૂરો થયો', pa: 'ਕਲਾਸ ਖਤਮ ਹੋ ਗਈ',
+      ur: 'کلاس ختم ہوئی', or: 'ଶ୍ରେଣୀ ସମାପ୍ତ ହେଲା', en: 'Class is dismissed'
+    },
+  ];
+
+  const LANG_KEY_MAP = {
+    'hi-IN': 'hi', 'en-IN': 'en', 'ta-IN': 'ta', 'te-IN': 'te', 'kn-IN': 'kn',
+    'ml-IN': 'ml', 'bn-IN': 'bn', 'mr-IN': 'mr', 'gu-IN': 'gu', 'pa-IN': 'pa',
+    'ur-IN': 'ur', 'or-IN': 'or'
+  };
+
+  function renderPhrasebook() {
+    const list = document.getElementById('phraseList');
+    const key = LANG_KEY_MAP[tgtLangEl.value] || 'en';
+    const langLabel = langName(tgtLangEl);
+
+    if (!LANG_KEY_MAP[tgtLangEl.value]) {
+      list.innerHTML = `<div class="translate-hint">Offline phrasebook abhi ${langLabel} mein available nahi hai. Ek major language (jaise Hindi, Tamil, Telugu) select karo — ya internet aane par AI translation se koi bhi language milega.</div>`;
+      return;
+    }
+
+    list.innerHTML = PHRASEBOOK.map(p => `
+      <div class="phrase-card">
+        <div class="phrase-en">${p.en}</div>
+        <div class="phrase-translated">
+          <span>${p[key]}</span>
+          <button class="icon-btn" onclick="speakOffline('${p[key].replace(/'/g, "\\'")}', '${tgtLangEl.value}')">🔊</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function speakOffline(text, langCode) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = langCode;
+    utter.rate = 0.95;
+    const voices = window.speechSynthesis.getVoices();
+    const v = voices.find(v => v.lang === langCode) || voices.find(v => v.lang.startsWith(langCode.split('-')[0]));
+    if (v) utter.voice = v;
+    // Note: works offline only if the device already has this voice downloaded/on-device.
+    window.speechSynthesis.speak(utter);
+  }
+
+  tgtLangEl.addEventListener('change', () => {
+    if (!navigator.onLine) renderPhrasebook();
+  });
+
+  let translateRecognition = null;
+  let isTranslateRecording = false;
+  let lastTranslation = '';
+
+  if (SR) {
+    translateRecognition = new SR();
+    translateRecognition.continuous = false;
+    translateRecognition.interimResults = false;
+
+    translateRecognition.onresult = (e) => {
+      const text = e.results[e.results.length - 1][0].transcript;
+      if (text.trim()) {
+        srcTextEl.textContent = text;
+        srcTextEl.classList.remove('placeholder');
+        runTranslation(text);
+      }
+    };
+
+    translateRecognition.onend = () => {
+      isTranslateRecording = false;
+      translateMicBtn.classList.remove('recording');
+      translateMicBtn.innerHTML = '🎤';
+    };
+
+    translateRecognition.onerror = (e) => {
+      if (e.error !== 'no-speech') {
+        translateStatus.textContent = 'Kuch problem aayi, dobara try karo';
+      }
+      stopTranslateMic();
+    };
+  }
+
+  function toggleTranslateMic() {
+    if (!translateRecognition) {
+      alert('Chrome browser use karo voice ke liye!');
+      return;
+    }
+    if (isTranslateRecording) {
+      stopTranslateMic();
+    } else {
+      startTranslateMic();
+    }
+  }
+
+  function startTranslateMic() {
+    translateRecognition.lang = srcLangEl.value;
+    isTranslateRecording = true;
+    translateMicBtn.classList.add('recording');
+    translateMicBtn.innerHTML = '⏹️';
+    translateStatus.textContent = `${langName(srcLangEl)} mein bolo...`;
+    try { translateRecognition.start(); } catch(e) {}
+  }
+
+  function stopTranslateMic() {
+    isTranslateRecording = false;
+    translateMicBtn.classList.remove('recording');
+    translateMicBtn.innerHTML = '🎤';
+    try { translateRecognition.stop(); } catch(e) {}
+  }
+
+  async function runTranslation(text) {
+    if (!navigator.onLine) {
+      updateNetworkStatus();
+      return;
+    }
+    translateStatus.textContent = 'Translate ho raha hai...';
+    tgtTextEl.textContent = '...';
+    tgtTextEl.classList.add('placeholder');
+
+    try {
+      const res = await fetch('/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: text,
+          source_lang: langName(srcLangEl),
+          target_lang: langName(tgtLangEl)
+        })
+      });
+      const data = await res.json();
+      const translation = data.translation || 'Translation nahi ho paya';
+      tgtTextEl.textContent = translation;
+      tgtTextEl.classList.remove('placeholder');
+      lastTranslation = translation;
+      translateStatus.textContent = 'Ho gaya! Dobara bolne ke liye mic dabao';
+      speakTranslation(translation);
+    } catch (err) {
+      tgtTextEl.textContent = 'Internet slow/band hai — Offline Phrasebook try karo';
+      translateStatus.textContent = 'Connection error — dobara try karo';
+      updateNetworkStatus();
+    }
+  }
+
+  function speakTranslation(text) {
+    if (!('speechSynthesis' in window) || !text) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = tgtLangEl.value;
+    utter.rate = 0.95;
+
+    const voices = window.speechSynthesis.getVoices();
+    const targetVoice =
+      voices.find(v => v.lang === tgtLangEl.value) ||
+      voices.find(v => v.lang.startsWith(tgtLangEl.value.split('-')[0]));
+    if (targetVoice) utter.voice = targetVoice;
+
+    window.speechSynthesis.speak(utter);
+  }
+
+  function replayTranslation() {
+    if (lastTranslation) speakTranslation(lastTranslation);
+  }
 
   function autoResize(el) {
     el.style.height = 'auto';

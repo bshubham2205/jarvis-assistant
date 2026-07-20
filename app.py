@@ -36,13 +36,45 @@ def chat():
     messages.append({"role": "user", "content": user_message})
     
     response = client.chat.completions.create(
-       model="llama-3.3-70b-versatile",
+       model="openai/gpt-oss-120b",
         messages=messages,
         max_tokens=1024,
     )
     
     reply = response.choices[0].message.content
     return jsonify({"reply": reply})
+
+@app.route('/translate', methods=['POST'])
+def translate():
+    data = request.json
+    text = data.get('text', '').strip()
+    source_lang = data.get('source_lang', 'Hindi')
+    target_lang = data.get('target_lang', 'English')
+
+    if not text:
+        return jsonify({"translation": "", "source_text": ""})
+
+    prompt = f"""Translate the following text from {source_lang} to {target_lang}.
+
+Rules:
+- Output ONLY the translated text. No explanations, no notes, no quotes, no extra words.
+- Keep the natural tone and meaning, the way a native {target_lang} speaker would actually say it.
+- If the text is a classroom/educational sentence, keep terminology accurate and simple.
+
+Text: {text}"""
+
+    try:
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=512,
+            temperature=0.3,
+        )
+        translation = response.choices[0].message.content.strip()
+        return jsonify({"translation": translation, "source_text": text})
+    except Exception as e:
+        return jsonify({"translation": "", "source_text": text, "error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
